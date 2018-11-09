@@ -377,7 +377,6 @@ public:
 				step = a;
 			}
 		}
-		//cout << states;
 		start = start < 0 ? size_+start : start;
 		end = end < 0 ? size_+end : end;
 		if(states == 1){
@@ -396,19 +395,20 @@ public:
 		
 		index_check(start);
 		index_check(end);
+		for(int i=start; (step < 0 && i > end) || (step > 0 && i < end); i+=step){
+			sub.push(data_[i]);
+		}
+		/*
 		if(step < 0){
 			for(int i=start; i > end; i+=step){
-			    //cout << i << endl;
 				sub.push(data_[i]);
 			}
 		}
 		else{
 			for(int i=start; i < end; i+=step){
-				//cout << i << endl;
 				sub.push(data_[i]);
 			}
-		}
-
+		}*/
 		return sub;
 		/*
 		cout << start << endl;
