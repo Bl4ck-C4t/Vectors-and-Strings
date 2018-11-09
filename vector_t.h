@@ -334,7 +334,7 @@ public:
 		int step = 1;
 		int n=0;
 
-		for(int i=0; true ; i++){
+		for(int i=0; ; i++){
 			if(c[i] == ':' || c[i] == '\0'){
 				if(sub_str != ""){
 					int a = stoi(sub_str);
@@ -357,9 +357,9 @@ public:
 						states += 2;
 					}
 				}
+				if(c[i] == '\0') { break; }
 				sub_str = "";
 				n++;
-				if(c[i] == '\0') { break; }
 				continue;
 			}
 			sub_str.push_back(c[i]);
@@ -367,16 +367,16 @@ public:
 
 		start = start < 0 ? size_+start : start;
 		end = end < 0 ? size_+end : end;
-		if(states == 1){
+		if(states == 1){ // start not given
 			start = step < 0 ? size_-1 : 0;
 			if(c == ":"){
 				end = size_;
 			} 
 		}
-		if(states == 2){
+		if(states == 2){ // end not given
 			end = step < 0 ? -1 : size_;
 		}
-		if(states == 3){
+		if(states == 3){ // both not given
 			start = step < 0 ? size_-1 : 0;
 			end = step < 0 ? -1 : size_;
 		}
@@ -386,6 +386,7 @@ public:
 		for(int i=start; (step < 0 && i > end) || (step > 0 && i < end); i+=step){
 			sub.push(data_[i]);
 		}
+		return sub;
 		/*
 		if(step < 0){
 			for(int i=start; i > end; i+=step){
@@ -396,9 +397,7 @@ public:
 			for(int i=start; i < end; i+=step){
 				sub.push(data_[i]);
 			}
-		}*/
-		return sub;
-		/*
+		}
 		cout << start << endl;
 		cout << end << endl;
 		cout << step << endl;*/
