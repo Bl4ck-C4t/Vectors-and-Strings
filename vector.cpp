@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
 	//v1 = v1.reverse();
 	try{
 		//bool a = v1 == v2;
-		Vector<int> v3 = v1["::-2"];
+		Vector<int> v3 = v1["1::2"];
 		//e_v.pop_back();
 		cout << v3 << endl;
 

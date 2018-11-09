@@ -334,8 +334,8 @@ public:
 		int step = 1;
 		int n=0;
 
-		for(int i=0; c[i] != '\0'; i++){
-			if(c[i] == ':'){
+		for(int i=0; true ; i++){
+			if(c[i] == ':' || c[i] == '\0'){
 				if(sub_str != ""){
 					int a = stoi(sub_str);
 					switch(n){
@@ -359,24 +359,12 @@ public:
 				}
 				sub_str = "";
 				n++;
+				if(c[i] == '\0') { break; }
 				continue;
 			}
 			sub_str.push_back(c[i]);
 		}
-		
-		if(sub_str != ""){
-			int a = stoi(sub_str);
-			switch(n){
-			case 0:
-				start = a;
-				break;
-			case 1:
-				end = a;
-				break;
-			case 2:
-				step = a;
-			}
-		}
+
 		start = start < 0 ? size_+start : start;
 		end = end < 0 ? size_+end : end;
 		if(states == 1){
