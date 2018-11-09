@@ -378,8 +378,13 @@ public:
 			}
 		}
 		//cout << states;
+		start = start < 0 ? size_+start : start;
+		end = end < 0 ? size_+end : end;
 		if(states == 1){
 			start = step < 0 ? size_-1 : 0;
+			if(c == ":"){
+				end = size_;
+			} 
 		}
 		if(states == 2){
 			end = step < 0 ? -1 : size_;
