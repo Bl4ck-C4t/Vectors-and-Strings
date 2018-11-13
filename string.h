@@ -5,13 +5,13 @@ using namespace std;
 
 class String : public Vector<char> {
 public:
-	String(const char* str){
-		Vector();
+	String(const char* str) : Vector(){
+		//Vector();
 		*this += str;
 	}
 
-	String(){
-		Vector();
+	String() : Vector(){
+		//Vector();
 	}
 
 	String(Vector<char> vec) {
@@ -107,6 +107,14 @@ public:
 			}
 		}
 		return true;
+	}
+
+	operator Vector<char>(){ // CAST to a char vector from string
+		Vector<char> v1;
+		for(int i=0; i < size_; i++){
+			v1.push(data_[i]);
+		}
+		return v1;
 	}
 
 };

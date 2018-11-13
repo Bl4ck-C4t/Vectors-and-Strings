@@ -19,6 +19,10 @@ int main(int argc, char const *argv[])
 	*/
 	String s1("Hello");
 	String s2(" World");
+	Vector<char> v1 = (Vector<char>)s2;
+	cout << v1;
+	return 0;
+	String se();
 	s1 += s2;
 	s1 += "!\n";
 	String s3; 
@@ -30,7 +34,7 @@ int main(int argc, char const *argv[])
 	//s1.del(200);
 	bool a = s3 == s1;
 	//s1["::-1"];
-	s2 = s1["0:4"];
+	s2 = s1[":8"];
 	cout <<  s2 << endl;
 	return 0;
 }

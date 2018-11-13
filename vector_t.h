@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <initializer_list>
 using namespace std;
 //TODO finish the substring [::] operator
 template <class T>
@@ -33,18 +34,18 @@ protected:
 	}
 
 	void shift_left(int index){
+		index_check(index);
 		for(int i=index; i < size()-1; i++){
 			data_[i] = data_[i+1];
 		}
 	}
 
 	void shift_right(int index){
+		index_check(index);
 		for(int i=size(); i != index-1; i--){
 			data_[i] = data_[i-1];
 		}
 	}
-
-	
 
 public:
 	class VectorExp {
@@ -54,15 +55,6 @@ public:
 		string message_;
 		static const VectorExp index_err;
 		static const VectorExp empty_err;
-		/*
-		static VectorExp index_err{
-			return VectorExp("invalid index.");
-		}
-
-		static VectorExp empty_err{
-			return VectorExp("collection is empty.");
-		}
-		*/
 	public:
 
 		VectorExp(string mes) : message_(mes) {}
@@ -71,11 +63,6 @@ public:
 			cout << "ERR: " << message_ << endl;
 		}
 	};
-	/*
-	const VectorExp VectorExp::index_err = VectorExp("invalid index.");
-	const VectorExp VectorExp::empty_err = VectorExp("collection is empty.");
-	*/
-
 
 	class VectorIter{
 	private:
@@ -198,6 +185,17 @@ public:
 		size_ = 0;
 		data_ = new T [1];
 	}
+
+	Vector(initializer_list<T> ls) {
+		capacity_ = ls.size();
+		size_ = 0;
+		data_ = new T [ls.size()];
+		for(const T* it = ls.begin(); it != ls.end(); it++, size_++){
+			data_[size_] = *it;
+		}
+		
+	}
+
 	Vector(const Vector& other){
 		size_ = other.size_;
 		capacity_ = other.capacity_;
@@ -250,7 +248,6 @@ public:
 	}
 
 	void del(int index){
-		index_check(index);
 		shift_left(index);
 		size_--;
 	}
@@ -265,7 +262,6 @@ public:
 	}
 
 	void insert(int index, T val){
-		index_check(index);
 		check_resize();
 		shift_right(index);
 		data_[index] = val;
@@ -273,10 +269,9 @@ public:
 	}
 
 	Vector reverse() const{
-		Vector v_cpy(*this);
 		Vector v_cpy_res(*this);
 		int i=0;
-		for(VectorRevIter it = v_cpy.rbegin(); it != v_cpy.rend(); --it, i++){
+		for(VectorConstRevIter it = rbegin(); it != rend(); --it, i++){
 			v_cpy_res.data_[i] = *it;
 		}
 		return v_cpy_res;
@@ -316,13 +311,6 @@ public:
 
 
 	//OPERATOR OVERLOADING
-	T& operator[](int index){
-		index_check(index);
-		if(index < 0) {
-			return data_[size_+index];
-		}
-		return data_[index];
-	}
 
 	Vector<T> operator[](const char* c){ //::-1 0:3:-6
 		//cout << "Running" << endl;
@@ -403,7 +391,7 @@ public:
 		cout << step << endl;*/
 	}
 
-	T operator[](int index) const{
+	T& operator[](int index){
 		index_check(index);
 		if(index < 0) {
 			return data_[size_+index];
@@ -411,6 +399,14 @@ public:
 		return data_[index];
 	}
 
+	T operator[](int index) const{
+		index_check(index);
+		if(index < 0) {
+			return data_[size_+index];
+		}
+		return data_[index];
+	}
+	
 	void operator=(Vector<T>& other){
 		//Vector v1(other);
 		size_ = other.size_;

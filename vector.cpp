@@ -7,6 +7,8 @@ int main(int argc, char const *argv[])
 {
 	Vector<int> v1;
 	Vector<int> e_v;
+	Vector<int> v5({1,2,3,4});
+	cout << v5;
 	v1.push(0);
 	v1.push(1);
 	v1.push(2);
@@ -17,7 +19,7 @@ int main(int argc, char const *argv[])
 	//v1 = v1.reverse();
 	try{
 		//bool a = v1 == v2;
-		Vector<int> v3 = v1["1::2"];
+		Vector<int> v3 = v1["1:"];
 		//e_v.pop_back();
 		cout << v3 << endl;
 
